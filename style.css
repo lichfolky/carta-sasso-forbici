@@ -1,0 +1,35 @@
+body {
+    margin: 2rem;
+}
+
+.choices {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.user-choice {
+    display: flex;
+    flex-direction: column;
+    gap: .6rem;
+    width: 50%;
+}
+
+.computer-choice {
+    width: 50%;
+}
+
+.button {
+    padding: .3rem 1rem;
+    border: 1px solid black;
+    display: inline;
+    width: fit-content;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+h1,
+h2 {
+    text-align: center;
+}
