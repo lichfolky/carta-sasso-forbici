@@ -1,3 +1,4 @@
+// COSA DEVE FARE IL PROGRAMMA
 // attendi che l'utente clicchi un bottone e scelga un'opzione
 // genera una scelte del pc
 // calcola chi ha vinto
@@ -13,6 +14,7 @@ rock = 2
 scissors = 3
 */
 
+// queste non sono necessarie dato che eseguiamo tutto dentro una funzione
 let computerChoice = 0;
 let userChoice = 0;
 
@@ -60,7 +62,11 @@ function whoWon(user, pc) {
 // se ha vinto user mostra vinto user
 // se pareggio mostra pareggio
 function game(userChoice) {
-    computerChoice = makeAChoice();
+
+    // questa variabile ho deciso di rederla non globale
+    // perchè la uso soltanto in questa funzione
+    // in generale è meglio avere funzioni isolate
+    let computerChoice = makeAChoice();
     let winner = whoWon(userChoice, computerChoice)
     pcChoice.innerHTML = computerChoice;
     if (winner == 1) {
