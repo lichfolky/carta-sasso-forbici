@@ -67,15 +67,15 @@ function game(userChoice) {
     // perchè la uso soltanto in questa funzione
     // in generale è meglio avere funzioni isolate
     let computerChoice = makeAChoice();
-    let winner = whoWon(userChoice, computerChoice)
+    let winner = whoWon(userChoice, computerChoice);
     pcChoice.innerHTML = computerChoice;
     if (winner == 1) {
-        resultText.innerText = "ha vinto user"
+        resultText.innerText = "ha vinto user";
     } else {
         if (winner == 2) {
-            resultText.innerText = "ha vinto pc"
+            resultText.innerText = "ha vinto pc";
         } else {
-            resultText.innerText = "pareggio"
+            resultText.innerText = "pareggio";
         }
     }
 }
@@ -84,10 +84,10 @@ function game(userChoice) {
 
 buttonPaper.addEventListener("click", () => {
     game(1);
-})
+});
 buttonRock.addEventListener("click", () => {
     game(2);
-})
+});
 buttonScissors.addEventListener("click", () => {
     game(3);
-})
+});
