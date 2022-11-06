@@ -1,3 +1,4 @@
+"use strict";
 // COSA DEVE FARE IL PROGRAMMA
 // attendi che l'utente clicchi un bottone e scelga un'opzione
 // genera una scelte del pc
@@ -6,17 +7,11 @@
 // se ha vinto user mostra vinto user
 // se pareggio mostra pareggio
 
-// VARIABILI
-/*
-noChoice = 0
-paper = 1
-rock = 2
-scissors = 3
-*/
+const PAPER = 0;
+const ROCK = 1;
+const SCISSORS = 2;
 
-// queste non sono necessarie dato che eseguiamo tutto dentro una funzione
-let computerChoice = 0;
-let userChoice = 0;
+const choicesNames = ["Carta", "Sasso", "Forbici"];
 
 let buttonPaper = document.getElementById("paper");
 let buttonRock = document.getElementById("rock");
@@ -29,16 +24,17 @@ let resultText = document.getElementById("result");
 
 // restituisce un valore tra 1 e tre, la scelta del pc
 function makeAChoice() {
-    return getRandomIntInclusive(1, 3);
+    return getRandomIntInclusive(0, 2);
 }
 
+// The maximum is inclusive and the minimum is inclusive
 function getRandomIntInclusive(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1) + min); // The maximum is inclusive and the minimum is inclusive
+    return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-// date due scelte (due numeri da 1 a 3), restituisci 1 se ha vinto il primo
+// Date due scelte (due numeri da 1 a 3), restituisci 1 se ha vinto il primo
 // 2 se ha vinto il secondo e 0 se pareggio
 function whoWon(user, pc) {
     if (user == pc) {
@@ -56,6 +52,26 @@ function whoWon(user, pc) {
     }
 }
 
+/*
+se le due scelte sono uguali return 0
+se vince la prima return 1
+se vince la seconde return 2
+*/
+function compareChoice(choice1, choice2) {
+    if (choice1 == choice2) {
+        return 0;
+    } else {
+        // user vs pc : 1, 2; 2, 3; 3, 1
+        if ((choice1 == PAPER && choice2 == ROCK)
+            || (choice1 == ROCK && choice2 == SCISSORS)
+            || (choice1 == SCISSORS && choice2 == PAPER)) {
+            return 1;
+        } else {
+            return 2;
+        }
+    }
+}
+
 // genera una scelte del pc -
 // calcola chi ha vinto -
 // se ha vinto pc mostra vinto pc
@@ -68,26 +84,20 @@ function game(userChoice) {
     // in generale è meglio avere funzioni isolate
     let computerChoice = makeAChoice();
     let winner = whoWon(userChoice, computerChoice);
-    pcChoice.innerHTML = computerChoice;
+    pcChoice.innerHTML = choicesNames[userChoice];
+
     if (winner == 1) {
-        resultText.innerText = "ha vinto user";
+        resultText.innerHTML = "<p>" + choicesNames[userChoice] + " vs " + choicesNames[computerChoice] + "<\p>" + "Ha vinto user";
     } else {
         if (winner == 2) {
-            resultText.innerText = "ha vinto pc";
+            resultText.innerHTML = "<p>" + choicesNames[userChoice] + " vs " + choicesNames[computerChoice] + "<\p>" + "Ha vinto il pc";
         } else {
-            resultText.innerText = "pareggio";
+            resultText.innerHTML = "<p>" + choicesNames[userChoice] + " vs " + choicesNames[computerChoice] + "<\p>" + "Pareggio";
         }
     }
 }
 
 // MAIN
-
-buttonPaper.addEventListener("click", () => {
-    game(1);
-});
-buttonRock.addEventListener("click", () => {
-    game(2);
-});
-buttonScissors.addEventListener("click", () => {
-    game(3);
-});
+buttonPaper.addEventListener("click", () => game(PAPER));
+buttonRock.addEventListener("click", () => game(ROCK));
+buttonScissors.addEventListener("click", () => game(SCISSORS));
