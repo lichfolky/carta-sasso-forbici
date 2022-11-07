@@ -7,7 +7,7 @@ body {
     justify-content: center;
     align-items: center;
     max-width: 900px;
-    margin: 0 auto;
+    margin: 5rem auto;
 }
 
 #user-choice {
@@ -21,9 +21,23 @@ body {
 #computer-choice {
     width: 50%;
     text-align: center;
+    font-size: 2rem;
 }
 
+#choices-result {
+    font-size: 2rem;
+    text-align: center;
+}
+
+
+#result {
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+
 .button {
+    font-size: 2rem;
     min-width: 50px;
     text-align: center;
     padding: .6rem 1rem;

@@ -1,5 +1,5 @@
 "use strict";
-// COSA DEVE FARE IL PROGRAMMA
+// CARTA SASSO FORBICI
 // attendi che l'utente clicchi un bottone e scelga un'opzione
 // genera una scelte del pc
 // calcola chi ha vinto
@@ -13,17 +13,20 @@ const SCISSORS = 2;
 
 const choicesNames = ["Carta", "Sasso", "Forbici"];
 
-let buttonPaper = document.getElementById("paper");
-let buttonRock = document.getElementById("rock");
-let buttonScissors = document.getElementById("scissors");
+const buttonPaper = document.getElementById("paper");
+const buttonRock = document.getElementById("rock");
+const buttonScissors = document.getElementById("scissors");
 
-let pcChoice = document.getElementById("computer-choice");
-let resultText = document.getElementById("result");
+const pcChoice = document.getElementById("computer-choice");
+
+const choicesResultText = document.getElementById("choices-result");
+const resultText = document.getElementById("result");
+
 
 // FUNZIONI
 
 // restituisce un valore tra 1 e tre, la scelta del pc
-function makeAChoice() {
+function makeRandomChoice() {
     return getRandomIntInclusive(0, 2);
 }
 
@@ -34,37 +37,17 @@ function getRandomIntInclusive(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-// Date due scelte (due numeri da 1 a 3), restituisci 1 se ha vinto il primo
-// 2 se ha vinto il secondo e 0 se pareggio
+// Date due scelte 
+// restituisci 1 se ha vinto il user
+// 2 se ha vinto il pc e 0 se pareggio
 function whoWon(user, pc) {
     if (user == pc) {
-        console.log("pareggio");
         return 0;
     } else {
         // user vs pc : 1, 2; 2, 3; 3, 1
-        if ((user == 1 && pc == 2) || (user == 2 && pc == 3) || (user == 3 && pc == 1)) {
-            console.log("ha vinto user");
-            return 1;
-        } else {
-            console.log("ha vinto pc");
-            return 2;
-        }
-    }
-}
-
-/*
-se le due scelte sono uguali return 0
-se vince la prima return 1
-se vince la seconde return 2
-*/
-function compareChoice(choice1, choice2) {
-    if (choice1 == choice2) {
-        return 0;
-    } else {
-        // user vs pc : 1, 2; 2, 3; 3, 1
-        if ((choice1 == PAPER && choice2 == ROCK)
-            || (choice1 == ROCK && choice2 == SCISSORS)
-            || (choice1 == SCISSORS && choice2 == PAPER)) {
+        if ((user == PAPER && pc == ROCK)
+            || (user == ROCK && pc == SCISSORS)
+            || (user == SCISSORS && pc == PAPER)) {
             return 1;
         } else {
             return 2;
@@ -78,21 +61,21 @@ function compareChoice(choice1, choice2) {
 // se ha vinto user mostra vinto user
 // se pareggio mostra pareggio
 function game(userChoice) {
-
-    // questa variabile ho deciso di rederla non globale
-    // perchè la uso soltanto in questa funzione
-    // in generale è meglio avere funzioni isolate
-    let computerChoice = makeAChoice();
-    let winner = whoWon(userChoice, computerChoice);
+    const computerChoice = makeRandomChoice();
+    const winner = whoWon(userChoice, computerChoice);
     pcChoice.innerHTML = choicesNames[userChoice];
+    choicesResultText.innerText = `${choicesNames[userChoice]} vs ${choicesNames[computerChoice]}`;
 
     if (winner == 1) {
-        resultText.innerHTML = "<p>" + choicesNames[userChoice] + " vs " + choicesNames[computerChoice] + "<\p>" + "Ha vinto user";
+        resultText.innerHTML = "Ha vinto user";
+        resultText.style.color = "green";
     } else {
         if (winner == 2) {
-            resultText.innerHTML = "<p>" + choicesNames[userChoice] + " vs " + choicesNames[computerChoice] + "<\p>" + "Ha vinto il pc";
+            resultText.innerHTML = "Ha vinto il pc";
+            resultText.style.color = "red";
         } else {
-            resultText.innerHTML = "<p>" + choicesNames[userChoice] + " vs " + choicesNames[computerChoice] + "<\p>" + "Pareggio";
+            resultText.innerHTML = "Pareggio";
+            resultText.style.color = "brown";
         }
     }
 }
