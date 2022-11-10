@@ -63,7 +63,7 @@ function whoWon(user, pc) {
 function game(userChoice) {
     const computerChoice = makeRandomChoice();
     const winner = whoWon(userChoice, computerChoice);
-    pcChoice.innerHTML = choicesNames[userChoice];
+    pcChoice.innerHTML = choicesNames[computerChoice];
     choicesResultText.innerText = `${choicesNames[userChoice]} vs ${choicesNames[computerChoice]}`;
 
     if (winner == 1) {
